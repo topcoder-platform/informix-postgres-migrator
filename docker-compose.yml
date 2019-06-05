@@ -1,0 +1,35 @@
+version: '2'
+services:
+  tc-informix:
+    image: "appiriodevops/tc-database-scripts:latest"
+    environment:
+      LICENSE: accept
+    ports:
+      - "2021:2021"
+      - "2022:2022"
+      - "27017:27017"
+      - "27018:27018"
+      - "27883:27883"
+    tty: true
+  tc-postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+     - POSTGRES_DB=postgres
+     - POSTGRES_PASSWORD=postgres
+  migrator:
+    build: .
+    container_name: informix-postgres-migrator
+    links:
+     - "tc-informix"
+     - "tc-postgres"
+    environment:
+     - PG_HOST=tc-postgres
+     - INFORMIX_HOST=tc-informix
+    tty: true
+    stdin_open: true
+    volumes:
+    - "./:/migrator"
+    working_dir: /migrator
