@@ -885,8 +885,8 @@ REVOKE ALL ON tcs_catalog.project FROM PUBLIC;
 
 CREATE TABLE IF NOT EXISTS tcs_catalog.project_info_type_lu (
     project_info_type_id INT not null,
-    name VARCHAR(64) not null,
-    description VARCHAR(25) not null,
+    name VARCHAR(128) not null,
+    description VARCHAR(128) not null,
     create_user VARCHAR(64) not null,
     create_date TIMESTAMP not null,
     modify_user VARCHAR(64) not null,
