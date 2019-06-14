@@ -2,7 +2,7 @@
 SET search_path TO tcs_catalog;
 -- Grant access
 GRANT USAGE ON SCHEMA tcs_catalog TO coder ;
-GRANT USAGE ON SCHEMA tcs_catalog TO readonly ;
+GRANT USAGE ON SCHEMA tcs_catalog TO postgres ;
 GRANT USAGE ON SCHEMA tcs_catalog TO veredox ;
 GRANT USAGE ON SCHEMA tcs_catalog TO openaim ;
 GRANT USAGE ON SCHEMA tcs_catalog TO truveo ;
@@ -1489,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS tcs_catalog.contest_prize (
 REVOKE ALL ON tcs_catalog.contest_prize FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS tcs_catalog.season (
     season_id DECIMAL(6,0),
-    name NVARCHAR(254),
+    name VARCHAR(254),
     rookie_competition_ind DECIMAL(1,0),
     next_rookie_season_id DECIMAL(6,0),
     modify_date TIMESTAMP default now() not null
@@ -1500,7 +1500,7 @@ REVOKE ALL ON tcs_catalog.season FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS tcs_catalog.stage (
     stage_id DECIMAL(6,0),
     season_id DECIMAL(6,0) not null,
-    name NVARCHAR(254) not null,
+    name VARCHAR(254) not null,
     start_date TIMESTAMP not null,
     end_date TIMESTAMP not null,
     modify_date TIMESTAMP default now() not null
