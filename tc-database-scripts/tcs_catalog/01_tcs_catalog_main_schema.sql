@@ -2177,7 +2177,7 @@ REVOKE ALL ON tcs_catalog.client_billing_config FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS tcs_catalog.client_billing_config_type_lu ( 
             client_billing_config_type_id INT not null, 
     name VARCHAR(64) not null, 
-    description VARCHAR(25) not null, 
+    description VARCHAR(128) not null, 
     create_user VARCHAR(64) not null, 
     create_date TIMESTAMP not null, 
     modify_user VARCHAR(64) not null, 
@@ -2273,7 +2273,7 @@ REVOKE ALL ON tcs_catalog.project_reliability FROM PUBLIC ;
 
 CREATE TABLE IF NOT EXISTS copilot_project_status (
   copilot_project_status_id DECIMAL(10,0) NOT NULL,
-  name VARCHAR(10) NOT NULL,
+  name VARCHAR(64) NOT NULL,
   create_user VARCHAR(64) NOT NULL,
   create_date TIMESTAMP NOT NULL,
   modify_user VARCHAR(64) NOT NULL,
@@ -2322,7 +2322,7 @@ REVOKE ALL ON tcs_catalog.copilot_project FROM PUBLIC;
 
 CREATE TABLE IF NOT EXISTS copilot_project_info_type (
   copilot_project_info_type_id DECIMAL(10,0) NOT NULL,
-  name VARCHAR(20) NOT NULL,
+  name VARCHAR(64) NOT NULL,
   create_user VARCHAR(64) NOT NULL,
   create_date TIMESTAMP NOT NULL,
   modify_user VARCHAR(64) NOT NULL,
