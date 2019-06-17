@@ -995,7 +995,7 @@ CREATE TABLE IF NOT EXISTS common_oltp.vm_instance_audit (
   create_date TIMESTAMP NOT NULL ,
   modify_date TIMESTAMP NOT NULL ,
   action VARCHAR(50) NOT NULL ,
-  user_id DECIMAL(10,0) NOT NULL,
+  user_id DECIMAL(10,0),
   PRIMARY KEY (vm_instance_audit_id)
 )
 ;
