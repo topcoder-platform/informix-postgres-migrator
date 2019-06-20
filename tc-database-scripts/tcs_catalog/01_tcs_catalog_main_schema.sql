@@ -1,4 +1,6 @@
--- Create database
+-- Create schema (database)
+CREATE schema tcs_catalog authorization postgres
+
 SET search_path TO tcs_catalog;
 -- Grant access
 GRANT USAGE ON SCHEMA tcs_catalog TO coder ;
@@ -302,7 +304,7 @@ CREATE TABLE IF NOT EXISTS tcs_catalog.component_inquiry (
     user_id DECIMAL(12,0) not null,
     comment VARCHAR(254),
     agreed_to_terms DECIMAL(1) not null,
-    rating DECIMAL(5) not null,
+    rating DECIMAL(10,0) not null,
     phase DECIMAL(12,0),
     tc_user_id DECIMAL(12,0),
     version DECIMAL(12,0),
