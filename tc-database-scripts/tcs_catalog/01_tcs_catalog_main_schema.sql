@@ -1,5 +1,5 @@
 -- Create schema (database)
-CREATE schema tcs_catalog authorization postgres
+CREATE schema tcs_catalog authorization postgres;
 
 SET search_path TO tcs_catalog;
 -- Grant access
