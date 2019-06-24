@@ -505,9 +505,7 @@ ALTER TABLE informixoltp.sched_job_detail ADD CONSTRAINT sched_job_detail_pk PRI
 
 ALTER TABLE informixoltp.round_image_xref ADD CONSTRAINT round_image_xref_pk PRIMARY KEY (round_id, image_id);
 
-alter table informixoltp.wl_team add constraint unique 
-    (team_name)
-    constraint u324_543;
+alter table informixoltp.wl_team add constraint u324_543 unique(team_name);
 
 ALTER TABLE informixoltp.wl_team ADD CONSTRAINT u324_542 PRIMARY KEY (team_id);
 
@@ -515,9 +513,7 @@ ALTER TABLE informixoltp.team_type_lu ADD CONSTRAINT u316_374 PRIMARY KEY (team_
 
 ALTER TABLE informixoltp.team_coder_component_xref ADD CONSTRAINT u318_378 PRIMARY KEY (team_id, coder_id, component_id, round_id);
 
-alter table informixoltp.team_coder_xref add constraint unique 
-    (coder_id)
-    constraint u319_383;
+alter table informixoltp.team_coder_xref add constraint u319_383 unique(coder_id);
 
 ALTER TABLE informixoltp.team_coder_xref ADD CONSTRAINT u319_384 PRIMARY KEY (team_id, coder_id);
 
@@ -746,9 +742,7 @@ ALTER TABLE informixoltp.round_language ADD CONSTRAINT round_language_pk PRIMARY
 
 ALTER TABLE informixoltp.generic_counter_client ADD CONSTRAINT generic_counter_client_pk PRIMARY KEY (client_id);
 
-alter table informixoltp.generic_counter_client add constraint unique 
-    (name)
-    constraint generic_counter_client_uk;
+alter table informixoltp.generic_counter_client add constraint generic_counter_client_uk unique (name);
 
 ALTER TABLE informixoltp.generic_counter ADD CONSTRAINT generic_counter_pk PRIMARY KEY (client_id, counter_id);
 
@@ -782,14 +776,11 @@ ALTER TABLE informixoltp.college_problem_set ADD CONSTRAINT pk_collegeproblemset
 
 ALTER TABLE informixoltp.problem_set_component_xref ADD CONSTRAINT pk_collegeproblemsetcomponent PRIMARY KEY (problem_set_id, component_id);
 
-ALTER TABLE informixoltp.invoice_type_lu
-      ADD CONSTRAINT PRIMARY KEY (invoice_type_id)
+ALTER TABLE informixoltp.invoice_type_lu ADD CONSTRAINT   pk_invoice_type_lu PRIMARY KEY(invoice_type_id);
       
-ALTER TABLE informixoltp.invoice_record
-      ADD CONSTRAINT PRIMARY KEY (invoice_record_id)
+ALTER TABLE informixoltp.invoice_record ADD CONSTRAINT pk_invoice_record PRIMARY KEY(invoice_record_id);
 
-ALTER TABLE informixoltp.invoice
-      ADD CONSTRAINT PRIMARY KEY (invoice_id)
+ALTER TABLE informixoltp.invoice ADD CONSTRAINT   pk_invoice PRIMARY KEY(invoice_id);
 
 ALTER TABLE informixoltp.invoice_record  ADD CONSTRAINT fk_invoicerecord_invoice FOREIGN KEY (invoice_id) references informixoltp.invoice (invoice_id);
 
