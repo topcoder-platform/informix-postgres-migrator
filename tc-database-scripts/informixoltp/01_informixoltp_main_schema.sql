@@ -3746,7 +3746,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.round_event (
 ;
 REVOKE ALL ON informixoltp.round_event FROM PUBLIC;
 
-create view IF NOT EXISTS informixoltp.rating (coder_id,round_id,rating,num_ratings,
+CREATE OR REPLACE VIEW informixoltp.rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
    select x0.coder_id ,x0.round_id ,x0.rating ,x0.num_ratings ,
        x0.modify_date ,x0.vol ,x0.vol
@@ -3754,7 +3754,7 @@ create view IF NOT EXISTS informixoltp.rating (coder_id,round_id,rating,num_rati
    where (x0.algo_rating_type_id = 1. ) ;
 REVOKE ALL ON informixoltp.rating FROM PUBLIC;
 
-create view IF NOT EXISTS informixoltp.rated_members (user_id) as
+CREATE OR REPLACE VIEW informixoltp.rated_members (user_id) as
    select x0.coder_id
    from informixoltp.algo_rating x0
    where (x0.num_ratings > 0. )  union select x1.user_id
@@ -6977,7 +6977,7 @@ SET search_path TO tcs_catalog;
 
 
 
-create view IF NOT EXISTS informixoltp.active_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
+CREATE OR REPLACE VIEW informixoltp.active_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
     -- Data Science projects
@@ -7060,7 +7060,7 @@ GRANT select ON informixoltp.active_data_science_challenges TO coder;
 
 
 
-create view IF NOT EXISTS informixoltp.upcoming_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
+CREATE OR REPLACE VIEW informixoltp.upcoming_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
     -- Data Science projects
