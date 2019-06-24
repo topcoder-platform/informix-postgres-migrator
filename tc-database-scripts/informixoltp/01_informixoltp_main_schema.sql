@@ -1,13 +1,26 @@
--- Create database
-SET search_path TO informixoltp.ltp;
+-- Create schema (database)
+CREATE schema informixoltp authorization postgres;
+
+--set path to informixoltp schema
+SET search_path TO informixoltp;
+
+-- Create users/roles
+--CREATE ROLE coder ;
+--CREATE ROLE db_sales_im ;
+--CREATE ROLE veredox ;
+--CREATE ROLE openaim ;
+--CREATE ROLE truveo ;
+--CREATE ROLE cockpit ;
+--CREATE ROLE winformula ;
+--CREATE ROLE openxtraz ;
 
 -- Grant access
-GRANT USAGE ON SCHEMA informixoltp.ltp TO coder ;
-GRANT USAGE ON SCHEMA informixoltp.ltp TO veredox ;
-GRANT USAGE ON SCHEMA informixoltp.ltp TO openaim ;
-GRANT USAGE ON SCHEMA informixoltp.ltp TO truveo ;
-GRANT USAGE ON SCHEMA informixoltp.ltp TO winformula ;
-GRANT USAGE ON SCHEMA informixoltp.ltp TO openxtraz ;
+GRANT USAGE ON SCHEMA informixoltp TO coder ;
+GRANT USAGE ON SCHEMA informixoltp TO veredox ;
+GRANT USAGE ON SCHEMA informixoltp TO openaim ;
+GRANT USAGE ON SCHEMA informixoltp TO truveo ;
+GRANT USAGE ON SCHEMA informixoltp TO winformula ;
+GRANT USAGE ON SCHEMA informixoltp TO openxtraz ;
 -- User public does not have connect privilege;
 CREATE TABLE IF NOT EXISTS informixoltp.access (
     access_id DECIMAL(2,0),
@@ -481,7 +494,7 @@ REVOKE ALL ON informixoltp.jivemessage FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS informixoltp.jivefilter (
     forumid DECIMAL(32,0) not null,
     filterindex DECIMAL(32,0) not null,
-    filterobject BYTE
+    filterobject bytea
 )
 ;
 
@@ -680,7 +693,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.system_test_result (
     deduction_amount DECIMAL(6,2),
     timestamp TIMESTAMP default now(),
     viewable CHAR(1) default 'N',
-    received BYTE,
+    received bytea,
     succeeded DECIMAL(1,0),
     message VARCHAR(100),
     failure_type_id DECIMAL(3,0),
@@ -767,7 +780,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.solution (
     coder_id DECIMAL(10,0),
     solution_text TEXT,
     modify_date TIMESTAMP,
-    solution_class BYTE,
+    solution_class bytea,
     language_id DECIMAL(3,0),
     package VARCHAR(255),
     has_check_answer boolean default 'f'
@@ -822,12 +835,12 @@ CREATE TABLE IF NOT EXISTS informixoltp.challenge (
     succeeded DECIMAL(1,0),
     submit_time DECIMAL(15,0) not null,
     challenger_id DECIMAL(10,0) not null,
-    args BYTE,
+    args bytea,
     message VARCHAR(255),
     challenger_points DECIMAL(7,2),
     defendant_points DECIMAL(7,2),
-    expected BYTE,
-    received BYTE,
+    expected bytea,
+    received bytea,
     status_id DECIMAL(3,0),
     check_answer_response varchar(255)
 )
@@ -1155,7 +1168,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.staging_problem (
     status DECIMAL(3,0),
     default_solution TEXT,
     language_id DECIMAL(3,0),
-    param_types BYTE,
+    param_types bytea,
     problem_text TEXT,
     group_id DECIMAL(10,0),
     modify_date TIMESTAMP,
@@ -1260,12 +1273,12 @@ CREATE TABLE IF NOT EXISTS informixoltp.staging_challenge (
     succeeded DECIMAL(1,0),
     submit_time DECIMAL(15,0) not null,
     challenger_id DECIMAL(10,0) not null,
-    args BYTE,
+    args bytea,
     message VARCHAR(255),
     challenger_points DECIMAL(7,2),
     defendant_points DECIMAL(7,2),
-    expected BYTE,
-    received BYTE,
+    expected bytea,
+    received bytea,
     status_id DECIMAL(3,0),
     backup_id DECIMAL(10,0)
 )
@@ -1969,7 +1982,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.web_service_compilation (
     sort_order DECIMAL(3,0),
     web_service_file_type_id DECIMAL(10,0),
     path VARCHAR(255),
-    class_file BYTE
+    class_file bytea
 )
 ;
 
@@ -2020,7 +2033,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.resume (
     file_name VARCHAR(100),
     file_type_id DECIMAL(3,0),
     timestamp TIMESTAMP default now(),
-    file BYTE
+    file bytea
 )
 ;
 
@@ -2168,7 +2181,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.compilation (
     saved_time DECIMAL(14,0),
     compiled_time DECIMAL(14,0),
     compilation_text TEXT,
-    compilation_class_file BYTE,
+    compilation_class_file bytea,
     language_id DECIMAL(3,0)
 )
 ;
@@ -2178,7 +2191,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.submission (
     component_state_id DECIMAL(10,0),
     submission_number DECIMAL(5,0),
     submission_text TEXT,
-    submission_class_file BYTE,
+    submission_class_file bytea,
     open_time DECIMAL(14,0),
     submit_time DECIMAL(14,0),
     submission_points DECIMAL(7,2),
@@ -2357,7 +2370,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.staging_submission (
     component_state_id DECIMAL(10,0),
     submission_number DECIMAL(5,0),
     submission_text TEXT,
-    submission_class_file BYTE,
+    submission_class_file bytea,
     open_time DECIMAL(14,0),
     submit_time DECIMAL(14,0),
     submission_points DECIMAL(7,2),
@@ -2371,7 +2384,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.staging_compilation (
     component_state_id DECIMAL(10,0),
     open_time DECIMAL(14,0),
     compilation_text TEXT,
-    compilation_class_file BYTE,
+    compilation_class_file bytea,
     language_id DECIMAL(3,0),
     backup_id DECIMAL(10,0) not null
 )
@@ -2388,7 +2401,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.staging_system_test_result (
     deduction_amount DECIMAL(6,2),
     timestamp TIMESTAMP default now(),
     viewable CHAR(1) default 'N',
-    received BYTE,
+    received bytea,
     succeeded DECIMAL(1,0),
     message VARCHAR(100),
     backup_id DECIMAL(10,0)
@@ -2399,8 +2412,8 @@ REVOKE ALL ON informixoltp.staging_system_test_result FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS informixoltp.staging_system_test_case (
     test_case_id DECIMAL(10,0),
     problem_id DECIMAL(10,0) not null,
-    args BYTE,
-    expected_result BYTE,
+    args bytea,
+    expected_result bytea,
     modify_date TIMESTAMP default now()
 )
 ;
@@ -2409,8 +2422,8 @@ REVOKE ALL ON informixoltp.staging_system_test_case FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS informixoltp.system_test_case (
     test_case_id DECIMAL(10,0),
     component_id DECIMAL(10,0) not null,
-    args BYTE,
-    expected_result BYTE,
+    args bytea,
+    expected_result bytea,
     modify_date TIMESTAMP default now(),
     status DECIMAL(3,0),
     example_flag DECIMAL(1,0),
@@ -2495,7 +2508,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.jms_messages (
     destination VARCHAR(150) not null,
     txid INT,
     txop CHAR(1),
-    messageblob blob
+    messageblob bytea
 )
 ;
 
@@ -2534,7 +2547,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.solution_class_file (
     solution_id DECIMAL(10,0),
     sort_order DECIMAL(3,0),
     path VARCHAR(255),
-    class_file BYTE
+    class_file bytea
 )
 ;
 
@@ -2664,7 +2677,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.long_system_test_result (
     example DECIMAL(1,0),
     processing_time DECIMAL(14,0),
     timestamp TIMESTAMP default now(),
-    fatal_errors BYTE,
+    fatal_errors bytea,
     score FLOAT,
     test_action DECIMAL(2,0) default 10 not null,
     peak_memory_used DECIMAL(32,0) default -1
@@ -2704,7 +2717,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.compilation_class_file (
     component_state_id DECIMAL(10,0),
     sort_order DECIMAL(3,0),
     path VARCHAR(255),
-    class_file BYTE
+    class_file bytea
 )
 ;
 
@@ -2714,7 +2727,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.submission_class_file (
     submission_number DECIMAL(5,0),
     sort_order DECIMAL(3,0),
     path VARCHAR(255),
-    class_file BYTE
+    class_file bytea
 )
 ;
 
@@ -2736,7 +2749,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.long_submission_class_file (
     example DECIMAL(1,0),
     sort_order DECIMAL(3,0),
     path VARCHAR(255),
-    class_file BYTE
+    class_file bytea
 )
 ;
 
@@ -3063,7 +3076,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.mike_school (
     state_code VARCHAR(2),
     country_code VARCHAR(3),
     user_id DECIMAL(10,0) not null,
-    name NVARCHAR(200) not null,
+    name varchar(200) not null,
     modify_date TIMESTAMP default now(),
     short_name VARCHAR(20),
     school_type_id DECIMAL(3,0),
@@ -3371,8 +3384,8 @@ CREATE TABLE IF NOT EXISTS informixoltp.timers (
     targetid VARCHAR(80) not null,
     initialdate TIMESTAMP not null,
     timerinterval DECIMAL(18,0),
-    instancepk BYTE,
-    info BYTE
+    instancepk bytea,
+    info bytea
 )
 ;
 
@@ -3538,7 +3551,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.fax_solution (
     coder_id DECIMAL(10,0),
     solution_text TEXT,
     modify_date TIMESTAMP,
-    solution_class BYTE,
+    solution_class bytea,
     language_id DECIMAL(3,0),
     package VARCHAR(255)
 )
@@ -3656,7 +3669,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.long_system_test_data (
     test_case_id DECIMAL(10,0),
     submission_number DECIMAL(5,0),
     example DECIMAL(1,0),
-    data BYTE,
+    data bytea,
     test_action DECIMAL(2,0) default 10
 )
 ;
@@ -3733,18 +3746,19 @@ CREATE TABLE IF NOT EXISTS informixoltp.round_event (
 ;
 REVOKE ALL ON informixoltp.round_event FROM PUBLIC;
 
-create view informixoltp.rating (coder_id,round_id,rating,num_ratings,
+create view IF NOT EXISTS informixoltp.rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
    select x0.coder_id ,x0.round_id ,x0.rating ,x0.num_ratings ,
        x0.modify_date ,x0.vol ,x0.vol
    from informixoltp.algo_rating x0
    where (x0.algo_rating_type_id = 1. ) ;
 REVOKE ALL ON informixoltp.rating FROM PUBLIC;
-create view informixoltp.rated_members (user_id) as
+
+create view IF NOT EXISTS informixoltp.rated_members (user_id) as
    select x0.coder_id
    from informixoltp.algo_rating x0
    where (x0.num_ratings > 0. )  union select x1.user_id
-      from tcs_catalog:informixoltp.user_rating x1
+      from tcs_catalog.user_rating x1
       where (x1.num_ratings > 0.0000000000000000 ) ;
 REVOKE ALL ON informixoltp.rated_members FROM PUBLIC;
 
@@ -6963,7 +6977,7 @@ SET search_path TO tcs_catalog;
 
 
 
-create view informixoltp.active_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
+create view IF NOT EXISTS informixoltp.active_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
     -- Data Science projects
@@ -6971,21 +6985,21 @@ SELECT
     pcl.description AS challenge_type
     , pn.value AS challenge_name
     , p.project_id AS challenge_id
-    , (SELECT COUNT(*) FROM tcs_catalog:submission s1 INNER JOIN tcs_catalog:upload u1 ON s1.upload_id = u1.upload_id
+    , (SELECT COUNT(*) FROM tcs_catalog.submission s1 INNER JOIN tcs_catalog.upload u1 ON s1.upload_id = u1.upload_id
           WHERE u1.project_id = p.project_id
               AND s1.submission_type_id = 1
               AND s1.submission_status_id <> 5) AS num_submissions
-    , (SELECT COUNT(*) FROM tcs_catalog:resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
+    , (SELECT COUNT(*) FROM tcs_catalog.resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
     , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
     , NVL(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
-    , 'Develop'::nvarchar(50) as challenge_community
+    , 'Develop'::varchar(50) as challenge_community
     , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
-FROM tcs_catalog:project p
-    , tcs_catalog:project_phase pp1 --registration phase
-    , tcs_catalog:project_phase pp2 --submission phase
-    , tcs_catalog:project_info pn
-    , tcs_catalog:project_category_lu pcl
-    , tcs_catalog:project_info pi1 -- external id
+FROM tcs_catalog.project p
+    , tcs_catalog.project_phase pp1 --registration phase
+    , tcs_catalog.project_phase pp2 --submission phase
+    , tcs_catalog.project_info pn
+    , tcs_catalog.project_category_lu pcl
+    , tcs_catalog.project_info pi1 -- external id
 WHERE p.project_id = pn.project_id
     AND pn.project_info_type_id = 6
     AND pp1.project_id = p.project_id
@@ -7002,37 +7016,37 @@ WHERE p.project_id = pn.project_id
     -- SRMs
 union all
 select
-    'SRM'::nvarchar(254) as challenge_type,
-    r.short_name::nvarchar(128) as challenge_name,
+    'SRM'::varchar(254) as challenge_type,
+    r.short_name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp.ltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp.ltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
-    'Data'::nvarchar(50) as challenge_community,
+    'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp.ltp:contest c
-join informixoltp.ltp:round as r on r.contest_id = c.contest_id and r.status='A'
-join informixoltp.ltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
-join informixoltp.ltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
+from informixoltp:contest c
+join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
+join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
+join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
 where  r.round_type_id in (1, 2, 10) 
   and current between rs1.start_time and rs2.end_time
     -- Marathon Matches
 union all
 select
-    'Marathon'::nvarchar(254) as challenge_type,
-    c.name || ' ' || r.name::nvarchar(128) as challenge_name,
+    'Marathon'::varchar(254) as challenge_type,
+    c.name || ' ' || r.name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp.ltp:long_component_state cs, informixoltp.ltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp.ltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp:long_component_state cs, informixoltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
-    'Data'::nvarchar(50) as challenge_community,
+    'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp.ltp:contest c
-join informixoltp.ltp:round as r on r.contest_id = c.contest_id and (r.status='A' or r.status = 'F')
-join informixoltp.ltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
-join informixoltp.ltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
+from informixoltp:contest c
+join informixoltp:round as r on r.contest_id = c.contest_id and (r.status='A' or r.status = 'F')
+join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
+join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
 where r.round_type_id in (10,13,15,19,22,24,25,27) 
   and current between rs1.start_time and rs2.end_time;
 
@@ -7046,7 +7060,7 @@ GRANT select ON informixoltp.active_data_science_challenges TO coder;
 
 
 
-create view informixoltp.upcoming_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
+create view IF NOT EXISTS informixoltp.upcoming_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
     -- Data Science projects
@@ -7054,21 +7068,21 @@ SELECT
     pcl.description AS challenge_type
     , pn.value AS challenge_name
     , p.project_id AS challenge_id
-    , (SELECT COUNT(*) FROM tcs_catalog:submission s1 INNER JOIN tcs_catalog:upload u1 ON s1.upload_id = u1.upload_id
+    , (SELECT COUNT(*) FROM tcs_catalog.submission s1 INNER JOIN tcs_catalog.upload u1 ON s1.upload_id = u1.upload_id
           WHERE u1.project_id = p.project_id
               AND s1.submission_type_id = 1
               AND s1.submission_status_id <> 5) AS num_submissions
-    , (SELECT COUNT(*) FROM tcs_catalog:resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
+    , (SELECT COUNT(*) FROM tcs_catalog.resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
     , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
     , NVL(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
-    , 'Develop'::nvarchar(50) as challenge_community
+    , 'Develop'::varchar(50) as challenge_community
     , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
-FROM tcs_catalog:project p
-    , tcs_catalog:project_phase pp1 --registration phase
-    , tcs_catalog:project_phase pp2 --submission phase
-    , tcs_catalog:project_info pn
-    , tcs_catalog:project_category_lu pcl
-    , tcs_catalog:project_info pi1 -- external id
+FROM tcs_catalog.project p
+    , tcs_catalog.project_phase pp1 --registration phase
+    , tcs_catalog.project_phase pp2 --submission phase
+    , tcs_catalog.project_info pn
+    , tcs_catalog.project_category_lu pcl
+    , tcs_catalog.project_info pi1 -- external id
 WHERE p.project_id = pn.project_id
     AND pn.project_info_type_id = 6
     AND pp1.project_id = p.project_id
@@ -7087,36 +7101,36 @@ WHERE p.project_id = pn.project_id
     -- SRMs
 union all
 select
-    'SRM'::nvarchar(254) as challenge_type,
-    r.short_name::nvarchar(128) as challenge_name,
+    'SRM'::varchar(254) as challenge_type,
+    r.short_name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp.ltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp.ltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
-    'Data'::nvarchar(50) as challenge_community,
+    'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp.ltp:contest c
-join informixoltp.ltp:round as r on r.contest_id = c.contest_id and r.status='F'
-join informixoltp.ltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
-join informixoltp.ltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
+from informixoltp:contest c
+join informixoltp:round as r on r.contest_id = c.contest_id and r.status='F'
+join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
+join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
 where  r.round_type_id in (1, 2, 10)
     -- Marathon Matches
 union all
 select
-    'Marathon'::nvarchar(254) as challenge_type,
-    c.name || ' ' || r.name::nvarchar(128) as challenge_name,
+    'Marathon'::varchar(254) as challenge_type,
+    c.name || ' ' || r.name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp.ltp:long_component_state cs, informixoltp.ltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp.ltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp:long_component_state cs, informixoltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
-    'Data'::nvarchar(50) as challenge_community,
+    'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp.ltp:contest c
-join informixoltp.ltp:round as r on r.contest_id = c.contest_id and r.status='F'
-join informixoltp.ltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
-join informixoltp.ltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
+from informixoltp:contest c
+join informixoltp:round as r on r.contest_id = c.contest_id and r.status='F'
+join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
+join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
 where r.round_type_id in (10,13,15,19,22,24,25,27) ;
 
 
