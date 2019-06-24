@@ -1,4 +1,4 @@
-SET search_path TO informixoltp.ltp;
+SET search_path TO informixoltp;
 
 ALTER TABLE informixoltp.access ADD CONSTRAINT access_pkey PRIMARY KEY (access_id);
 
