@@ -55,7 +55,7 @@
 -- payment_detail_xref_pablo_dec, payment_detail_xref_dr20075, payment_detail_xref_pablo, nate_long_comp_result, payment_dr20075,
 -- payment_detail_dr20075, payment_detail_pablo, payment_detail_pablo_dec, mike_school, mike_temp1, mike_temp, miketemp be deleted?
 
-SET search_path TO informixoltp.ltp;
+SET search_path TO informixoltp;
 
 INSERT INTO informixoltp.access(access_id,access_desc) VALUES (99, 'Staff');
 INSERT INTO informixoltp.access(access_id,access_desc) VALUES (10, 'Read');
@@ -2154,7 +2154,7 @@ INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_or
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (73, 2, 'ColdFusion', 'Y', 60, '2004-10-25 10:03:13.000');
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (74, 2, 'DHTML', 'Y', 70, '2004-10-25 10:03:13.000');
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (75, 2, 'Flash', 'Y', 90, '2004-10-25 10:03:13.000');
-INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (76, 2, informixoltp.GL', 'Y', 120, '2004-10-25 10:03:14.000');
+INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (76, 2, 'informixoltp.GL', 'Y', 120, '2004-10-25 10:03:14.000');
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (77, 2, 'PHP', 'Y', 180, '2004-10-25 10:03:14.000');
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (78, 2, 'PL/SQL', 'Y', 190, '2004-10-25 10:03:14.000');
 INSERT INTO informixoltp.skill(skill_id,skill_type_id,skill_desc,status,skill_order,modify_date) VALUES (79, 2, 'PowerBuilder', 'Y', 200, '2004-10-25 10:03:14.000');
