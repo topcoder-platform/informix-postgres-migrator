@@ -874,7 +874,7 @@ CREATE TABLE IF NOT EXISTS informixoltp.current_school (
 REVOKE ALL ON informixoltp.current_school FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS informixoltp.current_job (
     coder_id DECIMAL(10),
-    record_no DECIMAL(2),
+    record_no DECIMAL(10),
     title VARCHAR(100),
     company VARCHAR(100)
 )
