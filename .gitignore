@@ -5,3 +5,4 @@ common_oltp-informixInfo.json
 common_oltp-postgresInfo.json
 jive-informixInfo.json
 jive-postgresInfo.json
+*.log
