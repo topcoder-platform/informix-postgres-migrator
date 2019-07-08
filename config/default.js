@@ -17,7 +17,7 @@ module.exports = {
     bigserial: 'int',
   },
   TC_DATABASE_SCRIPTS: [{
-    database: 'common_oltp',
+    database: 'informixoltp',
     path: path.join(__dirname, '../tc-database-scripts/informixoltp'),
   }, {
     database: 'jive',
