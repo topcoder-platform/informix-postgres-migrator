@@ -18,7 +18,7 @@ module.exports = {
   },
   TC_DATABASE_SCRIPTS: [{
     database: 'common_oltp',
-    path: path.join(__dirname, '../tc-database-scripts/common_oltp'),
+    path: path.join(__dirname, '../tc-database-scripts/informixoltp'),
   }, {
     database: 'jive',
     path: path.join(__dirname, '../tc-database-scripts/jive'),
