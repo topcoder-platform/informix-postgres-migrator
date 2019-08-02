@@ -46,7 +46,7 @@ BEGIN
   payload := ''
               || '{'
               || '"topic":"' || 'db.postgres.sync' || '",'
-              || '"originator":"' || 'tc-submission-notification-processor' || '",'
+              || '"originator":"' || 'tc-postgres-delta-processor' || '",'
               || '"timestamp":"' || CURRENT_TIMESTAMP                    || '",'
               || '"Uniquecolumn":"' || uniquecolumn                   || '",'
               || '"operation":"' || TG_OP                                || '",'
