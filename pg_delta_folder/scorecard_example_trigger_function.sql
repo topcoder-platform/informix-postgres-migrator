@@ -7,7 +7,7 @@ EXECUTE PROCEDURE notify_trigger('scorecard_id', 'scorecard_status_id', 'scoreca
 
 
 
-CREATE OR REPLACE FUNCTION "public"."notify_trigger" ()  RETURNS trigger
+CREATE OR REPLACE FUNCTION "tcs_catalog"."notify_trigger" ()  RETURNS trigger
   VOLATILE
 AS $body$
 DECLARE
