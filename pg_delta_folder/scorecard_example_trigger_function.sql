@@ -1,12 +1,5 @@
 SET search_path TO tcs_catalog;
 
-CREATE TRIGGER "scorecard_trigger"
-  AFTER INSERT OR DELETE OR UPDATE ON scorecard
-  FOR EACH ROW
-EXECUTE PROCEDURE notify_trigger('scorecard_id', 'scorecard_status_id', 'scorecard_type_id', 'project_category_id', 'name', 'version', 'min_score', 'max_score', 'create_user', 'create_date', 'modify_user', 'modify_date', 'version_number');
-
-
-
 CREATE OR REPLACE FUNCTION "tcs_catalog"."notify_trigger" ()  RETURNS trigger
   VOLATILE
 AS $body$
@@ -60,4 +53,10 @@ BEGIN
   
   RETURN rec;
 END;
-$body$ LANGUAGE plpgsql
+$body$ LANGUAGE plpgsql;
+
+CREATE TRIGGER "scorecard_trigger"
+  AFTER INSERT OR DELETE OR UPDATE ON scorecard
+  FOR EACH ROW
+EXECUTE PROCEDURE notify_trigger('scorecard_id', 'scorecard_status_id', 'scorecard_type_id', 'project_category_id', 'name', 'version', 'min_score', 'max_score', 'create_user', 'create_date', 'modify_user', 'modify_date', 'version_number');
+
