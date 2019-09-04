@@ -1,4 +1,7 @@
 -- Create database
+-- Create schema (database)
+CREATE schema common_oltp authorization postgres;
+
 SET search_path TO common_oltp;
 
 -- Grant access
