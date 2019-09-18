@@ -1,6 +1,6 @@
 # Delta Migration from informix to postgres
 
-Challenge specification : Delta-Migration-pg-informix
+Challenge specification : Delta-Migration-informix-pg.pdf
 
 Challenge link : 
 
