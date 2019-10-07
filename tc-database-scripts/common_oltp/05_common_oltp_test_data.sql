@@ -1,3 +1,4 @@
+SET search_path TO common_oltp;
 delete from "user" where user_id=any('{132456,20,21,132457,132458,124764,124772,124766,124776,124834,124835,124836,124852,124853,124856,124857,124861,124916,22770213,22719217,22719218,22873364,100129}');
 insert into "user"(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) values (132456, 'firstdok', 'lastdok', '2008-02-08 15:28:56.000', 'heffan', NULL, 'A',  NULL, NULL, 143, NULL);
 insert into "user"(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) values (20, 'dok', 'dok', '2008-02-15 13:43:52.000', 'dok_tester', NULL, 'A', NULL, NULL,143, NULL);
