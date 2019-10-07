@@ -2032,7 +2032,7 @@ create OR REPLACE view tcs_catalog.user_customer (user_customer_id,login_id,
        x6.company_name ,((x1.address1 || ' ' ) || x1.address2 ) ,
        x1.city ,x1.zip ,x1.country_code ,'' ,'' ,x4.phone_number ,
        0 ,0 ,0 ,0 ,1 ,0 ,x0.activation_code ,x3.address 
-   from common_oltp."user" x0 ,address x1 ,user_address_xref x2 ,email x3, phone x4, contact x5, company x6  
+   from common_oltp."user" x0 ,common_oltp.address x1 ,common_oltp.user_address_xref x2 ,common_oltp.email x3, common_oltp.phone x4, common_oltp.contact x5, common_oltp.company x6  
    where ((((((((x0.user_id = x2.user_id ) AND (x1.address_id = x2.address_id ) ) AND (x3.primary_ind = 1. ) ) AND (x3.user_id = x0.user_id ) ) AND (x4.user_id = x0.user_id ) ) AND (x4.primary_ind = 1. ) ) AND (x5.contact_id = x0.user_id ) ) AND (x5.company_id = x6.company_id ) ) ;
 REVOKE ALL ON tcs_catalog.user_customer FROM PUBLIC;
 
