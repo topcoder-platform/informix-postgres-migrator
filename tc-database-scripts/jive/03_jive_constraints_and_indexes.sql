@@ -1,3 +1,4 @@
+SET search_path TO jive;
 create index if not exists jiveforum_forumidxctr_idx  on jiveforum  using btree(forumindexcounter);
 create index if not exists jivefourm_cdate_idx on jiveforum using btree(creationdate);
 create index if not exists jivefourm_mdate_idx on jiveforum using btree(modificationdate);
