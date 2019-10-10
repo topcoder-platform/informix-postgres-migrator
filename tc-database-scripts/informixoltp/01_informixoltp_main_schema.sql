@@ -6975,9 +6975,6 @@ GRANT select ON informixoltp.SEQUENCE_CONTEST_SEQ TO public;
 GRANT insert, update, select, delete ON informixoltp.round_prize TO public;
 
 SET search_path TO tcs_catalog;
-
-
-
 CREATE OR REPLACE VIEW informixoltp.active_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
@@ -6991,10 +6988,10 @@ SELECT
               AND s1.submission_type_id = 1
               AND s1.submission_status_id <> 5) AS num_submissions
     , (SELECT COUNT(*) FROM tcs_catalog.resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
-    , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
-    , NVL(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
+    , COALESCE(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
+    , COALESCE(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
     , 'Develop'::varchar(50) as challenge_community
-    , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
+    , COALESCE(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
 FROM tcs_catalog.project p
     , tcs_catalog.project_phase pp1 --registration phase
     , tcs_catalog.project_phase pp2 --submission phase
@@ -7013,53 +7010,45 @@ WHERE p.project_id = pn.project_id
     AND pp1.phase_status_id IN (2, 3)
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27621212)
+    AND EXISTS (SELECT DISTINCT 1 FROM tcs_catalog.comp_technology ct WHERE ct.comp_vers_id = cast(pi1.value as decimal)AND ct.technology_type_id = 27621212)
     -- SRMs
 union all
 select
     'SRM'::varchar(254) as challenge_type,
     r.short_name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp.room_result rre where rre.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp.round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
     'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp:contest c
-join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
-join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
-join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
-where  r.round_type_id in (1, 2, 10) 
-  and current between rs1.start_time and rs2.end_time
+from informixoltp.contest c
+join informixoltp.round as r on r.contest_id = c.contest_id and r.status='A'
+join informixoltp.round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
+join informixoltp.round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
+where  r.round_type_id in (1, 2, 10)
+  and current_timestamp between rs1.start_time and rs2.end_time
     -- Marathon Matches
 union all
 select
     'Marathon'::varchar(254) as challenge_type,
     c.name || ' ' || r.name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp:long_component_state cs, informixoltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp.long_component_state cs, informixoltp.long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp.round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
     'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp:contest c
-join informixoltp:round as r on r.contest_id = c.contest_id and (r.status='A' or r.status = 'F')
-join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
-join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
-where r.round_type_id in (10,13,15,19,22,24,25,27) 
-  and current between rs1.start_time and rs2.end_time;
-
+from informixoltp.contest c
+join informixoltp.round as r on r.contest_id = c.contest_id and (r.status='A' or r.status = 'F')
+join informixoltp.round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
+join informixoltp.round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
+where r.round_type_id in (10,13,15,19,22,24,25,27)
+  and current_timestamp between rs1.start_time and rs2.end_time;
 
 GRANT select ON informixoltp.active_data_science_challenges TO coder;
-;
-
-
-
-
-
-
 
 CREATE OR REPLACE VIEW informixoltp.upcoming_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
@@ -7074,10 +7063,10 @@ SELECT
               AND s1.submission_type_id = 1
               AND s1.submission_status_id <> 5) AS num_submissions
     , (SELECT COUNT(*) FROM tcs_catalog.resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS num_registrants
-    , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
-    , NVL(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
+    , COALESCE(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS registration_start_date
+    , COALESCE(pp2.actual_end_time, pp2.scheduled_end_time)::TIMESTAMP AS submission_end_date
     , 'Develop'::varchar(50) as challenge_community
-    , NVL(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
+    , COALESCE(pp1.actual_start_time, pp1.scheduled_start_time)::TIMESTAMP AS posting_date
 FROM tcs_catalog.project p
     , tcs_catalog.project_phase pp1 --registration phase
     , tcs_catalog.project_phase pp2 --submission phase
@@ -7094,27 +7083,27 @@ WHERE p.project_id = pn.project_id
     AND p.project_status_id in (1,2)
     AND pcl.project_category_id NOT IN (27, 37) --exclude when spec review was a 'contest.' Also exclude MM, which is in there as a 'software' contest.
     AND pp1.phase_status_id = 1
-    AND pp1.scheduled_start_time > CURRENT
-    AND pp1.scheduled_start_time < CURRENT + 90 UNITS DAY
+    AND pp1.scheduled_start_time > current_timestamp
+    AND pp1.scheduled_start_time < current_timestamp + interval '90' DAY
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27621212)
+    AND EXISTS (SELECT DISTINCT 1 FROM tcs_catalog.comp_technology ct WHERE ct.comp_vers_id = cast( pi1.value as decimal) AND ct.technology_type_id = 27621212)
     -- SRMs
 union all
 select
     'SRM'::varchar(254) as challenge_type,
     r.short_name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp:room_result rre where rre.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp.room_result rre where rre.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp.round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
     'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp:contest c
-join informixoltp:round as r on r.contest_id = c.contest_id and r.status='F'
-join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
-join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
+from informixoltp.contest c
+join informixoltp.round as r on r.contest_id = c.contest_id and r.status='F'
+join informixoltp.round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
+join informixoltp.round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
 where  r.round_type_id in (1, 2, 10)
     -- Marathon Matches
 union all
@@ -7122,19 +7111,16 @@ select
     'Marathon'::varchar(254) as challenge_type,
     c.name || ' ' || r.name::varchar(128) as challenge_name,
     r.round_id as challenge_id,
-    (select count(*) from informixoltp:long_component_state cs, informixoltp:long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
-    (select count(*) from informixoltp:round_registration rr where rr.round_id = r.round_id) as num_registrants,
+    (select count(*) from informixoltp.long_component_state cs, informixoltp.long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as num_submissions,
+    (select count(*) from informixoltp.round_registration rr where rr.round_id = r.round_id) as num_registrants,
     rs1.start_time::TIMESTAMP as registration_start_date,
     rs2.end_time::TIMESTAMP as submission_end_date,
     'Data'::varchar(50) as challenge_community,
     rs1.start_time::TIMESTAMP as posting_date
-from informixoltp:contest c
-join informixoltp:round as r on r.contest_id = c.contest_id and r.status='F'
-join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
-join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
+from informixoltp.contest c
+join informixoltp.round as r on r.contest_id = c.contest_id and r.status='F'
+join informixoltp.round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
+join informixoltp.round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
 where r.round_type_id in (10,13,15,19,22,24,25,27) ;
 
-
 GRANT select ON informixoltp.upcoming_data_science_challenges TO coder;
-;
-
