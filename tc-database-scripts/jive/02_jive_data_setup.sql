@@ -1,3 +1,4 @@
+SET search_path TO jive;
 delete from template_project_forum where template_project_forum_id=2;
 insert into template_project_forum (template_project_forum_id, template_id, name, description, display_order, direct_project_type_id) values (2, NULL, 'Project Requirements', 'Discuss Project Requirements here', 1, NULL);
 
