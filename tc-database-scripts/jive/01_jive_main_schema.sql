@@ -1,3 +1,6 @@
+CREATE schema IF NOT EXISTS jive authorization postgres;
+SET search_path TO jive;
+
 create table if not exists dual
   (
     value integer
