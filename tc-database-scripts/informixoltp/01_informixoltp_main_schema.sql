@@ -1,5 +1,6 @@
 -- Create schema (database)
-CREATE schema informixoltp authorization postgres;
+--CREATE schema informixoltp authorization postgres;
+CREATE schema IF NOT EXISTS informixoltp authorization postgres;
 
 --set path to informixoltp schema
 SET search_path TO informixoltp;
