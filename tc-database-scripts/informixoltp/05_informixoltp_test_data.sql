@@ -1,4 +1,4 @@
-SET search_path TO informixoltp.ltp;
+SET search_path TO informixoltp;
 
 INSERT INTO informixoltp.coder(coder_id,member_since,quote,modify_date,language_id,coder_type_id,date_of_birth,comp_country_code,contact_date) VALUES (132456, '2001-05-09 01:04:42.000', 'Acknowledge and move on.', '2006-10-06 22:04:54.000', 1, 2, NULL, '840', NULL);
 INSERT INTO informixoltp.coder(coder_id,member_since,quote,modify_date,language_id,coder_type_id,date_of_birth,comp_country_code,contact_date) VALUES (20, '2008-02-15 13:43:53.000', NULL, '2008-02-15 13:43:53.000', NULL, 2, NULL, NULL, NULL);
@@ -407,8 +407,8 @@ INSERT INTO informixoltp.response(response_id,user_id,question_id,answer_id,resp
 INSERT INTO informixoltp.response(response_id,user_id,question_id,answer_id,response_text,create_date,response) VALUES (593311, 27244067, 28432, 28433, NULL, '2008-09-22 16:06:21.000', NULL);
 INSERT INTO informixoltp.response(response_id,user_id,question_id,answer_id,response_text,create_date,response) VALUES (593312, 27244068, 28432, 28434, NULL, '2008-09-23 13:24:45.000', NULL);
 INSERT INTO informixoltp.response(response_id,user_id,question_id,answer_id,response_text,create_date,response) VALUES (593313, 27244068, 28430, NULL, NULL, '2008-09-23 13:24:45.000', '1976/05/12');
-INSERT INTO informixoltp.event (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (991, 14, 'High School Season 2', '2007-05-25 00:00:00.000', '2008-03-16 00:00:00.000', null, 19270, 'hsseason2', '2007-07-18 11:05:17.000', null);
-INSERT INTO informixoltp.event (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (993, 14, 'High School Season 3', '2008-05-09 00:00:00.000', '2008-09-01 00:00:00.000', null, 28429, 'hsseason3', '2008-06-26 15:00:34.000', null);
+INSERT INTO common_oltp."event" (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (991, 14, 'High School Season 2', '2007-05-25 00:00:00.000', '2008-03-16 00:00:00.000', null, 19270, 'hsseason2', '2007-07-18 11:05:17.000', null);
+INSERT INTO common_oltp."event" (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (993, 14, 'High School Season 3', '2008-05-09 00:00:00.000', '2008-09-01 00:00:00.000', null, 28429, 'hsseason3', '2008-06-26 15:00:34.000', null);
 INSERT INTO informixoltp.secure_object (secure_object_id,secure_object_type) VALUES (-1,'G');
 INSERT INTO informixoltp.secure_object (secure_object_id,secure_object_type) VALUES (1,'G');
 INSERT INTO informixoltp.secure_object (secure_object_id,secure_object_type) VALUES (2,'G');
@@ -477,8 +477,8 @@ INSERT INTO informixoltp.group_user VALUES (31,124834);
 INSERT INTO informixoltp.group_user VALUES (60,124861);
 INSERT INTO informixoltp.generic_counter_client VALUES (1, 'LongContestServices#Test');
 
-INSERT INTO informixoltp.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("w-9", 1, null, 62, 'US Tax Form', 0, 0, 1);
-INSERT INTO informixoltp.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("W-8BEN", 2, null, 62, 'Foreign Tax Form', 0, 0.3, 1);
+INSERT INTO informixoltp.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ('w-9', 1, null, 62, 'US Tax Form', 0, 0, 1);
+INSERT INTO informixoltp.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ('W-8BEN', 2, null, 62, 'Foreign Tax Form', 0, 0.3, 1);
 INSERT INTO practice_group (group_id, group_name) VALUES (1, 'Tournaments');
 INSERT INTO practice_group (group_id, group_name) VALUES (2, 'SRMs');
 INSERT INTO practice_group (group_id, group_name) VALUES (3, 'TCHS');
@@ -682,9 +682,9 @@ INSERT INTO informixoltp.system_test_case(test_case_id, component_id, modify_dat
 UPDATE informixoltp.id_sequences set next_block_start=33121384 where name = 'MAIN_SEQ';
 
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (12917, 'Test SRM', 'A', -1, 0);
-INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12918, 'Test MM', 'A', -1, 0,now(), ADD_MONTHS(current, 1));
+INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12918, 'Test MM', 'A', -1, 0,now(), current_date + interval '1 month');
 INSERT INTO contest (contest_id, name, status) VALUES (12919, 'Practice Test SRM DIV 2', 'A');
-INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12920, 'Test MM SnowCleaning', 'A', -1, 0,now(), ADD_MONTHS(current, 1));
+INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12920, 'Test MM SnowCleaning', 'A', -1, 0,now(), current_date + interval '1 month');
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (12921, 'Formal SRM', 'A', -1, 0);
 UPDATE informixoltp.id_sequences set next_block_start=12922 where name = 'CONTEST_SEQ';
 
@@ -695,36 +695,36 @@ INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13676, 12921, 'Formal SRM Round', 'Test SRM Round', 'F', 1, 0, 0, 1024);
 UPDATE informixoltp.id_sequences set next_block_start=13677 where name = 'ROUND_SEQ';
 
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 1,now(),now() + 5 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 7,now() + 5 UNITS MINUTE,now() + 10 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 2,now() + 10 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 3,now() + 25 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 4,now() + 25 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 5,now() + 30 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 1,now(), ADD_MONTHS(current, 1), 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 1,now(),now() + interval '5' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 7,now() +  interval '5' MINUTE,now() +  interval '10' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 2,now() +  interval '10' MINUTE,now() +  interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 3,now() +  interval '25' MINUTE,now() +  interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 4,now() +  interval '25' MINUTE,now() +  interval '30' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 5,now() +  interval '30' MINUTE,now() +  interval '30' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 1,now(), current_date + interval '1 month', 'F');
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 7,now(),now(), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 2,now(), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 3, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 4, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 5, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 1,now(),now() + 5 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 7,now() + 5 UNITS MINUTE,now() + 10 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 2,now() + 10 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 3,now() + 25 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 4,now() + 25 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 5,now() + 30 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 1,now(), ADD_MONTHS(current, 1), 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 2,now(), current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 3, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 4, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 5, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 1,now(),now() + interval '5' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 7,now() + interval '5' MINUTE,now() + interval '10' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 2,now() + interval '10' MINUTE,now() + interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 3,now() + interval '25' MINUTE,now() + interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 4,now() + interval '25' MINUTE,now() + interval '30' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 5,now() + interval '30' MINUTE,now() + interval '30' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 1,now(), current_date + interval '1 month', 'F');
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 7,now(),now(), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 2,now(), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 3, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 4, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 5, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 1,now(),now() + 5 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 7,now() + 5 UNITS MINUTE,now() + 10 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 2,now() + 10 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 3,now() + 25 UNITS MINUTE,now() + 25 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 4,now() + 25 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
-INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 5,now() + 30 UNITS MINUTE,now() + 30 UNITS MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 2,now(), current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 3, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 4, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 5, current_date + interval '1 month', current_date + interval '1 month', 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 1,now(),now() + interval '5' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 7,now() + interval '5' MINUTE,now() + interval '10' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 2,now() + interval '10' MINUTE,now() + interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 3,now() + interval '25' MINUTE,now() + interval '25' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 4,now() + interval '25' MINUTE,now() + interval '30' MINUTE, 'F');
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 5,now() + interval '30' MINUTE,now() + interval '30' MINUTE, 'F');
 
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13672, 2021, 0, 2, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13673, 2020, 0, 1, 1, 250, 0);
