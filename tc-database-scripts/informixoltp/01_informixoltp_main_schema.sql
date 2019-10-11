@@ -3,17 +3,18 @@
 CREATE schema IF NOT EXISTS informixoltp authorization postgres;
 
 --set path to informixoltp schema
+
 SET search_path TO informixoltp;
 
--- Create users/roles
---CREATE ROLE coder ;
---CREATE ROLE db_sales_im ;
---CREATE ROLE veredox ;
---CREATE ROLE openaim ;
---CREATE ROLE truveo ;
---CREATE ROLE cockpit ;
---CREATE ROLE winformula ;
---CREATE ROLE openxtraz ;
+--Create users/roles
+CREATE ROLE coder ;
+CREATE ROLE db_sales_im ;
+CREATE ROLE veredox ;
+CREATE ROLE openaim ;
+CREATE ROLE truveo ;
+CREATE ROLE cockpit ;
+CREATE ROLE winformula ;
+CREATE ROLE openxtraz ;
 
 -- Grant access
 GRANT USAGE ON SCHEMA informixoltp TO coder ;
