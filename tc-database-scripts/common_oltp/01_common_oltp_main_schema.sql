@@ -2,8 +2,6 @@
 -- Create schema (database)
 CREATE schema IF NOT EXISTS common_oltp authorization postgres;
 
-SET search_path TO common_oltp;
-
 --Create users/roles
 CREATE ROLE coder ;
 CREATE ROLE db_sales_im ;
@@ -13,6 +11,8 @@ CREATE ROLE truveo ;
 CREATE ROLE cockpit ;
 CREATE ROLE winformula ;
 CREATE ROLE openxtraz ;
+
+SET search_path TO common_oltp;
 
 -- Grant access
 GRANT USAGE ON SCHEMA common_oltp To postgres;
