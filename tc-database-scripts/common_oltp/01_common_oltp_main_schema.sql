@@ -1,8 +1,18 @@
 -- Create database
 -- Create schema (database)
-CREATE schema common_oltp authorization postgres;
+CREATE schema IF NOT EXISTS common_oltp authorization postgres;
 
 SET search_path TO common_oltp;
+
+--Create users/roles
+CREATE ROLE coder ;
+CREATE ROLE db_sales_im ;
+CREATE ROLE veredox ;
+CREATE ROLE openaim ;
+CREATE ROLE truveo ;
+CREATE ROLE cockpit ;
+CREATE ROLE winformula ;
+CREATE ROLE openxtraz ;
 
 -- Grant access
 GRANT USAGE ON SCHEMA common_oltp To postgres;
@@ -14,6 +24,7 @@ GRANT USAGE ON SCHEMA common_oltp TO truveo ;
 GRANT USAGE ON SCHEMA common_oltp TO cockpit ;
 GRANT USAGE ON SCHEMA common_oltp TO winformula ;
 GRANT USAGE ON SCHEMA common_oltp TO openxtraz ;
+
 -- User public does not have connect privilege;
 CREATE TABLE IF NOT EXISTS common_oltp.security_user (
     login_id DECIMAL(12,0) not null,
