@@ -1110,7 +1110,7 @@ CREATE TABLE IF NOT EXISTS common_oltp.gov_id_document (
 ;
 REVOKE ALL ON common_oltp.gov_id_document FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS access_token (
+CREATE TABLE IF NOT EXISTS common_oltp.access_token (
   access_token_id DECIMAL(12,0) NOT NULL ,
   token_type VARCHAR(20) NOT NULL ,
   token_key VARCHAR(200) NOT NULL ,
@@ -1123,7 +1123,7 @@ CREATE TABLE IF NOT EXISTS access_token (
 ;
 REVOKE ALL ON common_oltp.access_token FROM PUBLIC;  
 
-CREATE TABLE IF NOT EXISTS authorization_code_grant (
+CREATE TABLE IF NOT EXISTS common_oltp.authorization_code_grant (
   authorization_code_grant_id DECIMAL(12,0) NOT NULL ,
   redirect_uri VARCHAR(100) NOT NULL ,
   code VARCHAR(100) NOT NULL ,
@@ -1135,7 +1135,7 @@ CREATE TABLE IF NOT EXISTS authorization_code_grant (
 ;
 REVOKE ALL ON common_oltp.authorization_code_grant FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS oauth_permission (
+CREATE TABLE IF NOT EXISTS common_oltp.oauth_permission (
   permission_id DECIMAL(12,0) NOT NULL ,
   name VARCHAR(45) NOT NULL ,
   description VARCHAR(200) NOT NULL ,
@@ -1144,21 +1144,21 @@ CREATE TABLE IF NOT EXISTS oauth_permission (
 ;
 REVOKE ALL ON common_oltp.oauth_permission FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS http_verb (
+CREATE TABLE IF NOT EXISTS common_oltp.http_verb (
   http_verb_id DECIMAL(12,0) NOT NULL ,
   name VARCHAR(45) NOT NULL 
 )
 ;
 REVOKE ALL ON common_oltp.http_verb FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS http_uri (
+CREATE TABLE IF NOT EXISTS common_oltp.http_uri (
   http_uri_id DECIMAL(12,0) NOT NULL ,
   path VARCHAR(100) NOT NULL
 )
 ;
 REVOKE ALL ON common_oltp.http_uri FROM PUBLIC;
     
-CREATE TABLE IF NOT EXISTS oauth_permission_has_http_verb (
+CREATE TABLE IF NOT EXISTS common_oltp.oauth_permission_has_http_verb (
   permission_permission_id DECIMAL(12,0) NOT NULL ,
   http_verb_http_verb_id DECIMAL(12,0) NOT NULL 
 )
@@ -1166,14 +1166,14 @@ CREATE TABLE IF NOT EXISTS oauth_permission_has_http_verb (
 REVOKE ALL ON common_oltp.oauth_permission_has_http_verb FROM PUBLIC;
 
 
-CREATE TABLE IF NOT EXISTS oauth_permission_has_http_uri (
+CREATE TABLE IF NOT EXISTS common_oltp.oauth_permission_has_http_uri (
   permission_permission_id DECIMAL(12,0) NOT NULL ,
   http_uri_http_uri_id DECIMAL(12,0) NOT NULL 
 )
 ;
 REVOKE ALL ON common_oltp.oauth_permission_has_http_uri FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS access_token_has_permission (
+CREATE TABLE IF NOT EXISTS common_oltp.access_token_has_permission (
   access_token_access_token_id DECIMAL(12,0) NOT NULL ,
   permission_permission_id DECIMAL(12,0) NOT NULL 
 )
@@ -1181,14 +1181,14 @@ CREATE TABLE IF NOT EXISTS access_token_has_permission (
 REVOKE ALL ON common_oltp.access_token_has_permission FROM PUBLIC;
 
 
-CREATE TABLE IF NOT EXISTS authorization_code_grant_has_permission (
+CREATE TABLE IF NOT EXISTS common_oltp.authorization_code_grant_has_permission (
   code_grant_id DECIMAL(12,0) NOT NULL ,
   permission_permission_id DECIMAL(12,0) NOT NULL
 )
 ;
 REVOKE ALL ON common_oltp.authorization_code_grant_has_permission FROM PUBLIC;
 
-CREATE TABLE IF NOT EXISTS password_reset_token (
+CREATE TABLE IF NOT EXISTS common_oltp.password_reset_token (
   user_id INT NOT NULL,
   token VARCHAR(10) NOT NULL,
   expired_at TIMESTAMP NOT NULL,
