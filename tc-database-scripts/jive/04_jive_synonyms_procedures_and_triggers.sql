@@ -1,5 +1,10 @@
 SET search_path TO jive;
 
+--synonyms to be added
+--no need of fdw, common_oltp is used as schema not as db. remove line from 6-53.
+--to convert views, triggers accordingly
+
+
 create extension if not exists postgres_fdw;
 create server if not exists common_oltp_server foreign data wrapper postgres_fdw options(dbname 'common_oltp');
 create user mapping if not exists for current_user server common_oltp_server;
