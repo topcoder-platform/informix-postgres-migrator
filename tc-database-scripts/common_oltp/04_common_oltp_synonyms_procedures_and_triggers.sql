@@ -303,9 +303,9 @@ create trigger trig_event_modified
 before update or insert on common_oltp.event 
 for each row execute procedure common_oltp.proc_modify_date();
 
-create trigger trig_user_last_login 
-before update or insert on common_oltp.user 
-for each row execute procedure common_oltp.proc_modify_date();
+--create trigger trig_user_last_login 
+--before update or insert on common_oltp.user 
+--for each row execute procedure common_oltp.proc_modify_date();
 
 create trigger trig_user_last_login
 after update on common_oltp.user 
