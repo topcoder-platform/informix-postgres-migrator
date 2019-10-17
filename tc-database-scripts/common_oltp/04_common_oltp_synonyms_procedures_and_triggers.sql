@@ -289,7 +289,7 @@ for each row execute procedure common_oltp.proc_user_update();
 
 create trigger trig_user_preference_update 
 before update on common_oltp.user_preference 
-for each row execute procedure common_oltp.user_preference();
+for each row execute procedure common_oltp.proc_modify_date();
 
 create trigger trig_event_reg_modified 
 before update on common_oltp.event_registration 
