@@ -409,7 +409,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function component_developer to public;
+--grant execute on function component_developer to public;
+grant execute on function component_developer(decimal) to public;
 
 create or replace function categories(i_component_vers_id decimal(12)) returns varchar(1000) as $body$
 declare
@@ -437,7 +438,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function categories to public;
+--grant execute on function categories to public;								  
+grant execute on function categories(decimal) to public;
 
 create or replace function all_categories() returns varchar(1000) as $body$
 declare
@@ -463,7 +465,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function all_categories to public;
+--grant execute on function all_categories to public;
+grant execute on function all_categories() to public;								  
 
 create or replace function component_versions(i_component_vers_id decimal(12)) returns varchar(1000) as $body$
 declare cv_desc varchar(1000);
@@ -488,7 +491,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function component_versions to public;
+--grant execute on function component_versions to public;
+grant execute on function component_versions(decimal) to public;									  
 
 create or replace function technology_list( i_comp_vers_id decimal(12)  )
     returns varchar(1000) as $body$
@@ -519,7 +523,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function technology_list to public;
+--grant execute on function technology_list to public;
+grant execute on function technology_list(decimal) to public;									  
 
 create or replace function platform_list( i_project_id decimal(12) )
     returns varchar(1000) as $body$
@@ -552,7 +557,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function platform_list to public;
+--grant execute on function platform_list to public;
+grant execute on function platform_list(decimal) to public;									  
 
 create or replace function proc_resource_insert() returns trigger as $body$
 begin
@@ -566,7 +572,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function proc_resource_insert to public;
+--grant execute on function proc_resource_insert to public;
+grant execute on function proc_resource_insert() to public;										      
 
 create or replace function proc_contest_creation_insert () returns trigger as $body$
 begin
@@ -579,7 +586,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function proc_contest_creation_insert to public;
+--grant execute on function proc_contest_creation_insert to public;
+grant execute on function proc_contest_creation_insert() to public;										      
 
 create or replace function proc_contest_creation_update() returns trigger as $body$
 begin
@@ -592,7 +600,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function proc_contest_creation_update to public;
+--grant execute on function proc_contest_creation_update to public;
+grant execute on function proc_contest_creation_update() to public;										      
 
 
 create or replace function proc_review_scorecard_completion () returns trigger as $body$
@@ -614,7 +623,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function proc_review_scorecard_completion to public;
+--grant execute on function proc_review_scorecard_completion to public;
+grant execute on function proc_review_scorecard_completion() to public;															      															      
 
 create or replace function proc_contest_submission() returns trigger as $body$
 begin
@@ -625,7 +635,8 @@ begin
 end;
 $body$ language plpgsql;
 
-grant execute on function proc_contest_submission to public;
+--grant execute on function proc_contest_submission to public;
+grant execute on function proc_contest_submission() to public;										      
 
 create or replace function create_project_event() returns trigger as $body$
 declare source_id int;
@@ -683,6 +694,7 @@ end;
 $body$ language plpgsql;
 
 grant execute on function create_project_event() to public;
+										      
 
 create or replace function create_project_studio_event() returns trigger as $body$
 declare
