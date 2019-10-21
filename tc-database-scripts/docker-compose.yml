@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: "tc-postgres-db"
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: tc-postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
