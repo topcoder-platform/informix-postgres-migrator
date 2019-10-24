@@ -15,8 +15,9 @@ cd informix-postgres-migrater/tc-database-scripts
 `docker exec -it <containerid> bash`
 - verify for all schema is available. The following schema should be listed.
 
-`psql -U postgres
- postgres=# \dn`
+`psql -U postgres`
+
+`postgres=# \dn`
  
  common_oltp    | postgres
  
