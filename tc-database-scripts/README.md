@@ -32,4 +32,6 @@ cd informix-postgres-migrater/tc-database-scripts
  tcs_catalog    | postgres
  
  time_oltp      | postgres
+ 
+ Note : A docker volume is create at docker-compose.yml. Any changes to DB will persists even if docker container stops.
 
