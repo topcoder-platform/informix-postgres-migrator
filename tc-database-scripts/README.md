@@ -4,8 +4,10 @@
 - Docker
 
 ### Setup
-Clone this repo 
+Clone this repo
+
 cd informix-postgres-migrater/tc-database-scripts
+
 `docker-compose up -d`
 
 - wait for 2 minutes for inital setup of postgres scripts and verify.
