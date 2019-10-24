@@ -10,7 +10,7 @@ docker-compose up -d
 
 - wait for 2 minutes for inital setup of postgres scripts and verify.
 
-docker exec -it <containerid> bash
+docker exec -it <<containerid>> bash
 - verify for all schema is available. The following schema should be listed.
 
 psql -U postgres
