@@ -256,7 +256,10 @@ CREATE TABLE IF NOT EXISTS common_oltp.country (
     default_taxform_id DECIMAL(10,0),
     longitude DECIMAL(10,7),
     latitude DECIMAL(10,7),
-	region VARCHAR(64)
+	region VARCHAR(64),
+	iso_name VARCHAR(128),
+	iso_alpha2_code VARCHAR(2),
+	iso_alpha3_code VARCHAR(3)
 )
 ;
 
