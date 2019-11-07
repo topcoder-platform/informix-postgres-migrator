@@ -6,7 +6,7 @@
 ### Setup
 Clone this repo
 
-`cd informix-postgres-migrater/tc-database-scripts`
+`cd informix-postgres-migrator/tc-database-scripts`
 
 `docker-compose up -d`
 
