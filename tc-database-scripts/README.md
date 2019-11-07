@@ -1,7 +1,7 @@
 ## How to setup tc-postgres-db
 
 ### Prerequisite 
-- Docker
+- Docker-compose
 
 ### Setup
 Clone this repo
