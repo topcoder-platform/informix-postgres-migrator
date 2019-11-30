@@ -1254,7 +1254,9 @@ REVOKE ALL ON common_oltp.user_social_login FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS common_oltp.sso_login_provider (
   sso_login_provider_id DECIMAL(10,0) NOT NULL,
   name VARCHAR(50),
-  type VARCHAR(50) NOT NULL
+  type VARCHAR(50) NOT NULL,
+  identify_email_enabled BOOLEAN NOT NULL,
+  identify_handle_enabled BOOLEAN NOT NULL
 )
 ;
 
