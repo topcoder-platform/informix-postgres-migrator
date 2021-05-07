@@ -20,6 +20,6 @@
     "no-kafka": "^3.4.3",
     "pg": "^7.12.1",
     "sequelize": "^5.19.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   }
 }
