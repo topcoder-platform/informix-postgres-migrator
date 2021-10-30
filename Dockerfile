@@ -1,4 +1,4 @@
-FROM openjdk:8u181-jdk-stretch
+FROM openjdk:8u242-jdk-stretch
 
 RUN apt-get update && wget -qO- https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs libpq-dev g++ make
 
